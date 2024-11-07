@@ -429,6 +429,10 @@ class COSConfigCharm(CharmBase):
 
     def _on_start(self, _):
         """Event handler for StartEvent."""
+        if self.container.can_connect():
+            if self.config.get("git_ssh_key"):
+                self._trust_ssh_remote()
+                self._save_ssh_key()
         self._common_exit_hook()
 
     def _on_config_changed(self, _):
